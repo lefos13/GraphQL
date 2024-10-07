@@ -1,11 +1,13 @@
 export interface Greeting {
-  message: string;
   name: string;
-  id: string;
+  id: number;
+  message: string;
 }
 
-export interface FetchGreetingResponse {
+export interface GetGreetingByIdResponse {
   data: {
-    greeting: Greeting;
+    getGreetingById: {
+      greeting: Greeting;
+    };
   };
 }

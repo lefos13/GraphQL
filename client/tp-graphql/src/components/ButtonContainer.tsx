@@ -12,7 +12,7 @@ const ButtonContainer: React.FC<ButtonContainerProps> = ({ setGreeting }) => {
       <button
         className="button"
         onClick={() => {
-          fetchGreeting().then((greeting) => {
+          fetchGreeting(1).then((greeting) => {
             console.log(greeting);
             const mappedGreeting = `${greeting.message} ${greeting.name} ${greeting.id} test button`;
             setGreeting(mappedGreeting);
@@ -24,7 +24,7 @@ const ButtonContainer: React.FC<ButtonContainerProps> = ({ setGreeting }) => {
       <button
         className="button"
         onClick={() => {
-          fetchGreeting().then((greeting) => {
+          fetchGreeting(2).then((greeting) => {
             console.log(greeting);
             const mappedGreeting = `${greeting.message} ${greeting.name} ${greeting.id} test button 2`;
             setGreeting(mappedGreeting);
@@ -36,7 +36,7 @@ const ButtonContainer: React.FC<ButtonContainerProps> = ({ setGreeting }) => {
       <button
         className="button"
         onClick={() => {
-          fetchGreeting().then((greeting) => {
+          fetchGreeting(3).then((greeting) => {
             console.log(greeting);
             const mappedGreeting = `${greeting.message} ${greeting.name} ${greeting.id} test button 3`;
             setGreeting(mappedGreeting);
@@ -48,7 +48,7 @@ const ButtonContainer: React.FC<ButtonContainerProps> = ({ setGreeting }) => {
       <button
         className="button"
         onClick={() => {
-          fetchGreeting().then((greeting) => {
+          fetchGreeting(4).then((greeting) => {
             console.log(greeting);
             const mappedGreeting = `${greeting.message} ${greeting.name} ${greeting.id} test button 4`;
             setGreeting(mappedGreeting);

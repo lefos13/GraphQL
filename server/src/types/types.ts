@@ -13,3 +13,8 @@ export type Person = {
   name: string;
   id: number;
 };
+export interface MainLevel {
+  person?: Person;
+  error?: ErrorCase;
+  greeting?: Greeting;
+}

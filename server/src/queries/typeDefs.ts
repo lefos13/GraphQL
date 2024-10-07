@@ -1,6 +1,7 @@
 import { gql } from "apollo-server";
 
 export const typeDefs = gql`
+  #graphql
   type Person {
     name: String
     greeting: Greeting
@@ -9,18 +10,22 @@ export const typeDefs = gql`
   type Greeting {
     message: String
     name: String
-    id: Int
+    id: Int!
   }
 
   type ErrorCase {
     message: String
-    errorCode: Int
+    errorCode: Int!
   }
 
-  union MainLevel = Greeting | Person | ErrorCase
+  type MainLevel {
+    person: Person
+    error: ErrorCase
+    greeting: Greeting
+  }
 
   type Query {
-    greeting(id: Int!): MainLevel
-    person(id: Int!): MainLevel
+    getGreetingById(id: Int!): MainLevel
+    getPersonById(id: Int!): MainLevel
   }
 `;
