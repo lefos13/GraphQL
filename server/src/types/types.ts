@@ -1,20 +1,61 @@
-export type Greeting = {
-  message: string;
-  name: string;
-  id: number;
-};
-
-export type ErrorCase = {
+export interface ErrorCase {
   message: string;
   errorCode: number;
-};
+}
 
-export type Person = {
+export interface Person {
   name: string;
-  id: number;
-};
+  id: string;
+}
 export interface MainLevel {
   person?: Person;
   error?: ErrorCase;
-  greeting?: Greeting;
+}
+
+export interface Car {
+  id: string;
+  make: string;
+  model: string;
+  year: number;
+  seats: number;
+  color: string;
+  owner: string;
+}
+
+export interface House {
+  id: string;
+  address: string;
+  city: string;
+  state: string;
+  country: string;
+  zip: string;
+  rooms: number;
+  bathrooms: number;
+  builtDate: string;
+  owner: string;
+}
+export interface HouseInput {
+  address: string;
+  city: string;
+  state: string;
+  country: string;
+  zip: string;
+  rooms: number;
+  bathrooms: number;
+  builtDate: string;
+}
+
+export interface PersonInput {
+  name: string;
+  age: number;
+  car: CarInput;
+  house: HouseInput;
+}
+
+export interface CarInput {
+  make: string;
+  model: string;
+  year: number;
+  seats: number;
+  color: string;
 }

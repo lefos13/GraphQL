@@ -1,16 +1,35 @@
 import { gql } from "apollo-server";
 
 export const typeDefs = gql`
-  #graphql
-  type Person {
-    name: String
-    greeting: Greeting
+  type Car {
+    id: ID!
+    make: String
+    model: String
+    year: Int
+    seats: Int
+    color: String
+    owner: ID
   }
 
-  type Greeting {
-    message: String
+  type House {
+    id: ID!
+    address: String
+    city: String
+    state: String
+    country: String
+    zip: String
+    rooms: Int
+    bathrooms: Int
+    builtDate: String
+    owner: ID
+  }
+
+  type Person {
+    id: ID!
     name: String
-    id: Int!
+    age: Int
+    car(id: ID): [Car]
+    house(id: ID): [House]
   }
 
   type ErrorCase {
@@ -18,14 +37,41 @@ export const typeDefs = gql`
     errorCode: Int!
   }
 
-  type MainLevel {
-    person: Person
-    error: ErrorCase
-    greeting: Greeting
+  input HouseInput {
+    address: String
+    city: String
+    state: String
+    country: String
+    zip: String
+    rooms: Int
+    bathrooms: Int
+    builtDate: String
+  }
+
+  input CarInput {
+    make: String
+    model: String
+    year: Int
+    seats: Int
+    color: String
+  }
+
+  input PersonInput {
+    name: String
+    age: Int
+    car: CarInput
+    house: HouseInput
+  }
+
+  type Mutation {
+    addPerson(person: PersonInput): Person
   }
 
   type Query {
-    getGreetingById(id: Int!): MainLevel
-    getPersonById(id: Int!): MainLevel
+    getPersonById(id: ID!): Person
+    cars: [Car]
+    car(id: ID!): Car
+    houses: [House]
+    house(id: ID!): House
   }
 `;
