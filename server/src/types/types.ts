@@ -59,3 +59,11 @@ export interface CarInput {
   seats: number;
   color: string;
 }
+
+export interface GeneralResult {
+  message?: string;
+  status: number;
+  persons?: Person[];
+  houses?: House[];
+  cars?: Car[];
+}

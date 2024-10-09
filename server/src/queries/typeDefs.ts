@@ -67,11 +67,24 @@ export const typeDefs = gql`
     addPerson(person: PersonInput): Person
   }
 
-  type Query {
-    getPersonById(id: ID!): Person
-    cars: [Car]
-    car(id: ID!): Car
+  union PersonResult = Person | ErrorCase
+  union CarResult = Car | ErrorCase
+  union HouseResult = House | ErrorCase
+
+  type GeneralResult {
+    message: String
+    status: Int!
+    persons: [Person]
     houses: [House]
-    house(id: ID!): House
+    cars: [Car]
+  }
+
+  type Query {
+    getPersonById(id: ID!): PersonResult
+    persons: GeneralResult
+    cars: GeneralResult
+    car(id: ID!): CarResult
+    houses: GeneralResult
+    house(id: ID!): HouseResult
   }
 `;

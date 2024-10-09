@@ -1,4 +1,11 @@
-import { Car, Person, House, PersonInput, HouseInput } from "../types/types";
+import {
+  Car,
+  Person,
+  House,
+  PersonInput,
+  GeneralResult,
+  ErrorCase,
+} from "../types/types";
 import persons from "../mocks/persons.json";
 import cars from "../mocks/cars.json";
 import houses from "../mocks/houses.json";
@@ -7,29 +14,78 @@ import path from "path";
 
 export const resolvers = {
   Query: {
-    cars: (): Car[] | [] => {
-      return cars;
+    cars: (): GeneralResult => {
+      if (cars.length === 0) {
+        return {
+          cars: cars,
+          message: "No cars found",
+          status: 404,
+        };
+      }
+      return { cars: cars, message: "Cars found", status: 200 };
     },
-    car: (_: any, args: { id: string }): Car | null => {
+    car: (_: any, args: { id: string }): Car | ErrorCase => {
       const { id } = args;
-      return cars.find((car: Car): boolean => car.id === id) || null;
+      return (
+        cars.find((car: Car): boolean => car.id === id) || {
+          message: "Car not found",
+          errorCode: 404,
+        }
+      );
     },
-    houses: (): House[] | [] => {
-      return houses;
+    houses: (): GeneralResult => {
+      if (houses.length === 0) {
+        return {
+          houses: houses,
+          message: "No houses found",
+          status: 404,
+        };
+      }
+      return {
+        houses: houses,
+        message: "Houses found",
+        status: 200,
+      };
     },
-    house: (_: any, args: { id: string }): House | null => {
+    house: (_: any, args: { id: string }): House | ErrorCase => {
       const { id } = args;
-      return houses.find((house: House): boolean => house.id === id) || null;
+      return (
+        houses.find((house: House): boolean => house.id === id) || {
+          message: "House not found",
+          errorCode: 404,
+        }
+      );
     },
-    getPersonById: (_: any, args: { id: string }): Person | null => {
+    getPersonById: (_: any, args: { id: string }): Person | ErrorCase => {
       const { id } = args;
       const person = persons.find((person: Person) => person.id === id);
-      return person || null;
+      return person || { message: "Person not found", errorCode: 404 };
+    },
+    persons: (): GeneralResult => {
+      if (persons.length === 0) {
+        return {
+          persons: persons,
+          message: "No persons found",
+          status: 404,
+        };
+      }
+      return {
+        persons: persons,
+        message: "Persons found",
+        status: 200,
+      };
+    },
+  },
+  PersonResult: {
+    __resolveType(obj: any) {
+      if (obj.errorCode) {
+        return "ErrorCase";
+      }
+      return "Person";
     },
   },
   Person: {
     car: (parent: Person): Car[] | [] => {
-      console.log(parent);
       return cars.filter((car: Car) => car.owner === parent.id) || [];
     },
     house: (parent: Person): House[] | [] => {
